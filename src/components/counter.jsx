@@ -12,32 +12,36 @@ class Counter extends Component {
     fontWeight: "bold",
   };
 
+  renderTags() {
+    if (this.state.tags.length === 0) return <p>There are No tagss</p>;
+    return (
+      <ul>
+        {this.state.tags.map((tag) => (
+          <li key={tag}>{tag}</li>
+        ))}
+      </ul>
+    );
+  }
+
   render() {
     return (
       <React.Fragment>
         {/* <img src={this.state.imageUrl} alt="" /> */}
-        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button style={this.style} className="btn btn-secondary btn-sm">
-          Increment
-        </button>
-        <ul>
-          {this.state.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
-          ))}
-        </ul>
+        <div>
+          <span className="btn btn-primary btn-sm m-2">
+            {this.formatCount()}
+          </span>
+          <button>Increment</button>
+        </div>
+        {this.state.tags.length === 0 && "Please Create a New tag!"}
+        {this.renderTags()}
       </React.Fragment>
     );
   }
 
-  getBadgeClasses() {
-    let classes = "badge m-2 ";
-    classes += this.state.count === 0 ? "badge-warning" : "badge-primary";
-    return classes;
-  }
-
   formatCount() {
     const { count } = this.state;
-    return count === 0 ? "ZERO" : count;
+    return count === 0 ? "Zero" : count;
   }
 }
 
