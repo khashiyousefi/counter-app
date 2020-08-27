@@ -8,12 +8,12 @@ class Counter extends Component {
   };
 
   style = {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "bold",
   };
 
   renderTags() {
-    if (this.state.tags.length === 0) return <p>There are No tagss</p>;
+    if (this.state.tags.length === 0) return <p>There are No tagss</p>; //conditional Rendering
     return (
       <ul>
         {this.state.tags.map((tag) => (
@@ -23,20 +23,43 @@ class Counter extends Component {
     );
   }
 
+  // constructor() {
+  //   super();
+  //   this.handleIncrement = this.handleIncrement.bind(this);
+  // }}}
+
+  handleIncrement = (product) => {
+    this.setState({ count: this.state.count + 1 });
+    console.log("Increment Clicked", this.state.count);
+  };
+
   render() {
     return (
       <React.Fragment>
         {/* <img src={this.state.imageUrl} alt="" /> */}
         <div>
-          <span className="btn btn-primary btn-sm m-2">
+          <span style={this.style} className={this.getbadge()}>
             {this.formatCount()}
           </span>
-          <button>Increment</button>
+          <button
+            style={this.style}
+            className="btn btn-secondary btn-sm m-2"
+            onClick={() => this.handleIncrement()}
+          >
+            Increment
+          </button>
         </div>
+        {/* conditional Rendering */}
         {this.state.tags.length === 0 && "Please Create a New tag!"}
         {this.renderTags()}
       </React.Fragment>
     );
+  }
+
+  getbadge() {
+    let badge = "btn btn-sm m-2 btn-";
+    badge += this.formatCount() === "Zero" ? "warning" : "primary";
+    return badge;
   }
 
   formatCount() {
